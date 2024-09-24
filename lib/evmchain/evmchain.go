@@ -17,6 +17,8 @@ const (
 	// Testnets.
 	IDIliad uint64 = 1513
 
+	IDHarvest uint64 = 2513
+
 	storyEVMName        = "story_evm"
 	storyEVMBlockPeriod = time.Second * 2
 
@@ -49,6 +51,12 @@ func MetadataByName(name string) (Metadata, bool) {
 var static = map[uint64]Metadata{
 	IDIliad: {
 		ChainID:     IDIliad,
+		Name:        storyEVMName,
+		BlockPeriod: storyEVMBlockPeriod,
+		NativeToken: IP,
+	},
+	IDHarvest: {
+		ChainID:     IDHarvest,
 		Name:        storyEVMName,
 		BlockPeriod: storyEVMBlockPeriod,
 		NativeToken: IP,

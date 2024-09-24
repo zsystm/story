@@ -110,6 +110,8 @@ func InitFiles(ctx context.Context, initCfg InitConfig) error {
 		cfg = storycfg.IliadConfig
 	case network == netconf.Local:
 		cfg = storycfg.LocalConfig
+	case network == netconf.Harvest:
+		cfg = storycfg.HarvestConfig
 	default:
 		cfg = storycfg.DefaultConfig()
 		cfg.Network = network

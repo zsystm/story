@@ -32,14 +32,18 @@ const (
 
 	// Used for local network testing.
 	Local ID = "local"
+
+	// Used for harvest testnet.
+	Harvest ID = "harvest"
 )
 
 // supported is a map of supported networks.
 //
 //nolint:gochecknoglobals // Global state here is fine.
 var supported = map[ID]bool{
-	Iliad: true,
-	Local: true,
+	Iliad:   true,
+	Local:   true,
+	Harvest: true,
 }
 
 // IsAny returns true if the `ID` matches any of the provided targets.
