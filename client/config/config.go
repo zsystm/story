@@ -2,6 +2,7 @@ package config
 
 import (
 	"bytes"
+	_ "embed"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -19,8 +20,6 @@ import (
 	"github.com/piplabs/story/lib/log"
 	"github.com/piplabs/story/lib/netconf"
 	"github.com/piplabs/story/lib/tracer"
-
-	_ "embed"
 )
 
 const (
@@ -68,6 +67,27 @@ var (
 		Network:            "local",
 		EngineEndpoint:     DefaultEngineEndpoint,
 		EngineJWTFile:      DefaultJWTFile("local"),
+		SnapshotInterval:   defaultSnapshotInterval,
+		SnapshotKeepRecent: defaultSnapshotKeepRecent,
+		BackendType:        string(defaultDBBackend),
+		MinRetainBlocks:    defaultMinRetainBlocks,
+		PruningOption:      pruningtypes.PruningOptionDefault,
+		EVMBuildDelay:      defaultEVMBuildDelay,
+		EVMBuildOptimistic: false,
+		APIEnable:          false,
+		APIAddress:         "127.0.0.1:1317",
+		EnableUnsafeCORS:   false,
+		Tracer:             tracer.DefaultConfig(),
+		RPCLaddr:           "tcp://127.0.0.1:26657",
+		ExternalAddress:    "",
+		Seeds:              "",
+		SeedMode:           false,
+	}
+	HarvestConfig = Config{
+		HomeDir:            DefaultHomeDir(),
+		Network:            "harvest",
+		EngineEndpoint:     DefaultEngineEndpoint,
+		EngineJWTFile:      DefaultJWTFile("harvest"),
 		SnapshotInterval:   defaultSnapshotInterval,
 		SnapshotKeepRecent: defaultSnapshotKeepRecent,
 		BackendType:        string(defaultDBBackend),

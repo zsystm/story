@@ -1,13 +1,12 @@
 package netconf
 
 import (
+	_ "embed"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
 
 	"github.com/piplabs/story/lib/evmchain"
-
-	_ "embed"
 )
 
 const consensusID = "story-1"
@@ -62,6 +61,14 @@ var (
 	localConsensusSeedsTXT []byte
 )
 
+var (
+	//go:embed harvest/genesis.json
+	harvestConsensusGenesisJSON []byte
+
+	//go:embed harvest/seeds.txt
+	harvestConsensusSeedsTXT []byte
+)
+
 //nolint:gochecknoglobals // Static mappings.
 var statics = map[ID]Static{
 	Iliad: {
@@ -75,5 +82,11 @@ var statics = map[ID]Static{
 		StoryExecutionChainID: evmchain.IDLocal,
 		ConsensusGenesisJSON:  localConsensusGenesisJSON,
 		ConsensusSeedTXT:      localConsensusSeedsTXT,
+	},
+	Harvest: {
+		Version:               "v0.0.1",
+		StoryExecutionChainID: evmchain.IDHarvest,
+		ConsensusGenesisJSON:  harvestConsensusGenesisJSON,
+		ConsensusSeedTXT:      harvestConsensusSeedsTXT,
 	},
 }
