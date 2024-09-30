@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	cmtcmd "github.com/cometbft/cometbft/cmd/cometbft/commands"
-	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
 
 	"github.com/piplabs/story/client/app"
@@ -68,8 +67,6 @@ func newRunCmd(name string, runFunc func(context.Context, app.Config) error) *co
 func newRollbackCmd(appCreateFunc func(context.Context, app.Config) *app.App) *cobra.Command {
 	storyCfg := storycfg.DefaultConfig()
 	logCfg := log.DefaultConfig()
-	var removeBlock bool
-	var homeDir string
 
 	cmd := &cobra.Command{
 		Use:   "rollback",
@@ -95,13 +92,12 @@ application.
 			if err != nil {
 				return err
 			}
-			homeDir = cometCfg.RootDir
 
 			app := appCreateFunc(ctx, app.Config{
 				Config: storyCfg,
 				Comet:  cometCfg,
 			})
-			height, hash, err := cmtcmd.RollbackState(&cometCfg, removeBlock)
+			height, hash, err := cmtcmd.RollbackState(&cometCfg, storyCfg.RemoveBlock)
 			if err != nil {
 				return err
 			}
@@ -116,9 +112,8 @@ application.
 	}
 
 	bindRunFlags(cmd, &storyCfg)
+	bindRollbackFlags(cmd, &storyCfg)
 	log.BindFlags(cmd.Flags(), &logCfg)
-	cmd.Flags().String(flags.FlagHome, homeDir, "The application home directory")
-	cmd.Flags().BoolVar(&removeBlock, "hard", false, "remove last block as well as state")
 
 	return cmd
 

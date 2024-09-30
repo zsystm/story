@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	// Used for ABI embedding of the staking contract.
+	_ "embed"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -12,9 +14,6 @@ import (
 	libcmd "github.com/piplabs/story/lib/cmd"
 	"github.com/piplabs/story/lib/netconf"
 	"github.com/piplabs/story/lib/tracer"
-
-	// Used for ABI embedding of the staking contract.
-	_ "embed"
 )
 
 func bindRunFlags(cmd *cobra.Command, cfg *config.Config) {
@@ -118,6 +117,10 @@ func bindValidatorKeyFlags(cmd *cobra.Command, keyFilePath *string) {
 
 func bindStatusFlags(flags *pflag.FlagSet, cfg *StatusConfig) {
 	libcmd.BindHomeFlag(flags, &cfg.HomeDir)
+}
+
+func bindRollbackFlags(cmd *cobra.Command, cfg *config.Config) {
+	cmd.Flags().BoolVar(&cfg.RemoveBlock, "hard", false, "remove last block as well as state")
 }
 
 // Flag Validation

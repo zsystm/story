@@ -224,15 +224,6 @@ func CreateApp(ctx context.Context, cfg Config) *App {
 	}
 	app.Keepers.EVMEngKeeper.SetValidatorAddress(addr)
 
-	cmtNode, err := newCometNode(ctx, &cfg.Comet, app, privVal)
-	if err != nil {
-		panic(err)
-	}
-
-	rpcClient := rpclocal.New(cmtNode)
-	cmtAPI := comet.NewAPI(rpcClient)
-	app.SetCometAPI(cmtAPI)
-
 	return app
 }
 

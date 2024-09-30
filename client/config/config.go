@@ -180,6 +180,7 @@ type Config struct {
 	ExternalAddress    string
 	Seeds              string
 	SeedMode           bool
+	RemoveBlock        bool // See rollback
 }
 
 // ConfigFile returns the default path to the toml story config file.
